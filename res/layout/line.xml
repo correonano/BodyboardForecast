@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:id="@+id/line"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent" >
+	
+     <LinearLayout android:id="@+id/layoutDay"
+         		android:orientation="vertical"
+                android:layout_width="wrap_content"
+     			android:layout_height="wrap_content"
+     			android:layout_marginLeft="8dp"
+     			android:layout_marginTop="5dp">
+	     <TextView 	android:id="@+id/textDay"
+	                android:layout_width="wrap_content"
+	     			android:layout_height="wrap_content"
+	     			android:textSize="14sp"
+	     			android:textStyle="bold"></TextView>
+	     <TextView 	android:id="@+id/textDayNumber"
+	                android:layout_width="wrap_content"
+	     			android:layout_height="wrap_content"
+	     			android:textSize="12sp"></TextView>   
+     </LinearLayout>  
+     <TextView 	android:id="@+id/surf"
+           		android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textSize="20sp"
+				android:textStyle="bold"
+				android:layout_marginLeft="8dp"
+				android:layout_marginTop="8dp"
+				android:layout_toRightOf="@id/layoutDay"></TextView>
+	 <RatingBar
+		        android:id="@+id/ratingBar"
+		        android:layout_toRightOf="@id/surf"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="14dp" 
+		        android:layout_marginLeft="20dp" 
+		        android:numStars="5"
+		        android:stepSize="1"
+		        style="?android:attr/ratingBarStyleSmall"
+		        android:rating="2" />
+     <TextView 	android:id="@+id/surfSecondary"
+		        android:layout_toRightOf="@id/ratingBar"
+           		android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="4dp"
+				android:layout_marginLeft="10dp"
+				android:textSize="16sp"
+				android:text="1.2m 12s"></TextView>
+<!--      <TextView 	android:id="@+id/textDay3" -->
+<!--            		android:layout_width="30dp" -->
+<!-- 				android:layout_height="wrap_content"></TextView> -->
+     
+</RelativeLayout>

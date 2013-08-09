@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="points_prompt">Choose</string>
+    
+    <string-array name="points_array">
+        <item>Teahupoo</item>
+        <item>Mariano</item>
+        <item>Intendencia</item>
+        <item>Zicatela</item>
+        <item>El Gringo</item>
+    </string-array>
+</resources>
