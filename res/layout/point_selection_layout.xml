@@ -1,0 +1,99 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    tools:context=".PointSelectionActivity" >
+    
+    <TextView android:id="@+id/app_title"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content" 
+	        android:gravity="center"
+	        android:padding="3dp"
+	        android:textSize="36sp"
+	        android:textColor="@android:color/white"
+	        android:text="@string/forecast"
+			android:textStyle="bold"/>
+               		   
+  	<ImageView android:id="@+id/image_logo"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" 
+		    android:layout_centerHorizontal="true"
+		    android:layout_below="@id/app_title"
+		    android:layout_marginBottom="20dp"
+	        android:src="@drawable/bodylogo"/>
+    
+    <RelativeLayout     
+        	android:id="@+id/relative_spinner1"
+       		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:layout_below="@id/image_logo"
+		    android:layout_centerHorizontal="true">
+   	
+	    <Spinner
+		    android:id="@+id/country_spinner"
+		    android:layout_width="200dp"
+		    android:layout_height="wrap_content"
+		    android:gravity="center"
+	        android:entries="@array/country_array"
+	        android:prompt="@string/points_prompt"/> 
+	     
+	    <ImageView 
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/triangle"
+		    android:layout_marginRight="10dp"
+		    android:layout_marginTop="12dp"
+		    android:layout_alignRight="@id/country_spinner"/>
+        
+    </RelativeLayout>
+    
+    <RelativeLayout     
+        android:id="@+id/relative_spinner2"
+       	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+		android:layout_marginTop="20dp"
+	    android:layout_centerHorizontal="true"
+        android:layout_below="@id/relative_spinner1">
+    
+		<Spinner
+		    android:id="@+id/points_spinner"
+		    android:layout_width="200dp"
+		    android:paddingLeft="20dp"
+		    android:layout_height="wrap_content"
+		    android:gravity="center_horizontal"
+	        android:prompt="@string/points_prompt"/>    
+	        
+	    <ImageView 
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/triangle"
+		    android:layout_marginRight="10dp"
+		    android:layout_marginTop="12dp"
+		    android:layout_alignRight="@id/points_spinner"/>		
+    
+    </RelativeLayout>
+
+        
+    <Button
+        android:id="@+id/button1"
+        android:layout_below="@id/relative_spinner2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+	    android:layout_marginTop="20dp"
+	    android:paddingLeft="5dp"
+	    android:paddingRight="5dp"
+	    android:layout_centerHorizontal="true"
+	    android:background="@drawable/button_search_shape"
+        android:text="@string/letsgo" 
+        android:textColor="@android:color/black"/>
+    
+  	<ImageView android:id="@+id/powered"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" 
+		    android:layout_centerHorizontal="true"
+		    android:layout_below="@id/button1"
+		    android:layout_marginTop="40dp"
+	        android:src="@drawable/msw_powered_by"/>    
+
+</RelativeLayout>

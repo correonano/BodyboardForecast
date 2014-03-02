@@ -1,19 +1,17 @@
 package com.forecast.activities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
-import android.content.ContentResolver;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -24,138 +22,206 @@ import android.widget.TextView;
 
 import com.forecast.adapters.ForecastListAdapter;
 import com.forecast.adapters.ImageListAdapter;
-import com.forecast.database.ForecastContentProvider;
-import com.forecast.database.ForecastDAO;
-import com.forecast.json.Result;
+import com.forecast.connection.ForecastSearchResult;
+import com.forecast.json.ChartItem;
+import com.forecast.json.Charts;
+import com.forecast.json.ForecastItem;
+import com.forecast.util.Constants;
 import com.nano.bodyboardforecast.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ForecastReportActivity extends Activity {
 	
-	Button button;
-	Button button2;
-	ListView listView;
-	ListView listView2;
+	Button buttonForecast;
+	Button buttonExtendedForecast;
+	Button buttonCharts;
+	ImageView mapImageView;
+	View forecastView;
+	ListView extendedListView;
+	ListView chartListView;
+	
+	TextView title;
+	
+	TextView wavesHeight;
+	RatingBar forecastRatingBar;
+	TextView windDirection;
+	TextView windSpeed;
+	ImageView cursorWind;
+	
+	TextView primaryWavesHeight;
+	TextView primaryPeriodHeight;
+	ImageView primaryCursor;
 
-	BitmapFactory.Options opts;
+	TextView secondaryWavesHeight;
+	TextView secondaryPeriodHeight;
+	ImageView secondaryCursor;
+
+	ImageView weatherImage;
+	TextView weatherAirTemp;
+	TextView weatherSeaTemp;
+	
+	ForecastItem forecastNow;
+	ForecastSearchResult data;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) { 
+
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.forecastlayout);
 		
-		ContentResolver cr = getContentResolver();
-		ForecastDAO dao = new ForecastDAO(cr);
-		Result res = dao.getForecastNow(System.currentTimeMillis() / 1000L);
+		data = PointSelectionActivity.getData();
+		forecastNow = getForecastNow(data);
+		forecastView = (View) findViewById(R.id.forecast_relative_layout);
 
-		TextView maxMinSwell = (TextView) findViewById(R.id.maxMinWavesText);	
-		maxMinSwell.setText(res.getSwell().getMaxBreakingHeight() + "-" + res.getSwell().getMinBreakingHeight());
+		fillForecastInfo();
 		
-		RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-		ratingBar.setRating(res.getSolidRating());
+		extendedListView = (ListView) findViewById(R.id.listforecast);
+		ForecastListAdapter adapter = new ForecastListAdapter(this, R.layout.line, data.getResults());
+		extendedListView.setAdapter(adapter);
 		
-		TextView windCompass = (TextView) findViewById(R.id.windDirection);
-		TextView windSpeed = (TextView) findViewById(R.id.windSpeed);
-		windCompass.setText("WIND: " + res.getWind().getCompassDirection());
-		windSpeed.setText(res.getWind().getSpeed() + "km/h");
+		chartListView =  (ListView) findViewById(R.id.listimages);
+		chartListView.setAdapter(new ImageListAdapter(this, R.layout.line_image, getList()));
 		
-		if(res.getSwell().getComponents().getPrimary().getHeight() != null) {
-			TextView primarySwell = (TextView) findViewById(R.id.secundaryText);	
-			primarySwell.setText(primarySwell.getText() +  " " + res.getSwell().getComponents().getPrimary().getHeight() + "m " 
-				+ res.getSwell().getComponents().getPrimary().getPeriod() + "s");
-		}
+		buttonForecast = (Button) findViewById(R.id.forecastButton);
+		buttonExtendedForecast = (Button) findViewById(R.id.extendedForecastButton);	
+		buttonCharts = (Button) findViewById(R.id.chartsButton);	
 		
-		if(res.getSwell().getComponents().getSecondary().getHeight() != null) {
-			TextView secundarySwell = (TextView) findViewById(R.id.terciaryText);	
-			secundarySwell.setText(secundarySwell.getText() +  " " + res.getSwell().getComponents().getSecondary().getHeight() + "m " 
-				+ res.getSwell().getComponents().getSecondary().getPeriod() + "s");
-		}
+		buttonForecast.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				switchViews(forecastView);
+			}
+		});
 		
-		TextView temperature = (TextView) findViewById(R.id.temperatureText);
-		TextView pressure = (TextView) findViewById(R.id.pressureText);
-		temperature.setText(res.getCondition().getTemperature()+ "c");
-		pressure.setText(res.getCondition().getPressure() + "hp");
-
-		opts = new BitmapFactory.Options();
-		opts.inScaled = false;
+		buttonExtendedForecast.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				switchViews(extendedListView);
+			}
+		});
 		
-        ImageView cursorSwell = (ImageView)findViewById(R.id.imageCursorWind);
-		BitmapDrawable swellCursor = getRotatedBitmapDrawable(R.drawable.cursor_viento, res.getSwell().getComponents().getCombined().getDirection());
-		swellCursor.setGravity(Gravity.CENTER);
-        cursorSwell.setImageDrawable(swellCursor);
-        
-        BitmapDrawable swellBitmap = getRotatedBitmapDrawable(R.drawable.swell_image1, res.getSwell().getComponents().getCombined().getDirection());
-        BitmapDrawable windBitmap = getRotatedBitmapDrawable(R.drawable.wind_image1, res.getWind().getDirection().floatValue());
-        
-        BitmapDrawable rosa = (BitmapDrawable) getResources().getDrawable(R.drawable.rosa_viento);
-        BitmapDrawable map = (BitmapDrawable) getResources().getDrawable(R.drawable.teahupomap);
-        
-        swellBitmap.setGravity(Gravity.CENTER);
-        windBitmap.setGravity(Gravity.CENTER);
-	    Drawable drawableArray[]= new Drawable[]{map, rosa, swellBitmap, windBitmap};
-	    LayerDrawable layerDraw = new LayerDrawable(drawableArray);
-
-        ImageView imageMap = (ImageView)findViewById(R.id.imagePointMap);
-        imageMap.setImageDrawable(layerDraw);
-	    
-	    /*****/
-        
-		listView = (ListView) findViewById(R.id.listforecast);
-		Cursor cursor = cr.query(ForecastContentProvider.CONTENT_URI, null, null, null, null);
-		ForecastListAdapter adapter = new ForecastListAdapter(this, cursor);
-		listView.setAdapter(adapter);
+		buttonCharts.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				switchViews(chartListView);
+			}
+		});
+		
+	}
 	
+	private void fillForecastInfo() {
 		
+		title = (TextView) findViewById(R.id.point_title);
+		wavesHeight = (TextView) findViewById(R.id.maxMinWavesText);
+		forecastRatingBar = (RatingBar) findViewById(R.id.ratingBar);
+		windDirection = (TextView) findViewById(R.id.windDirection);
+		windSpeed = (TextView) findViewById(R.id.windSpeed);
+		cursorWind = (ImageView) findViewById(R.id.imageCursorWind);
 		
-		button = (Button) findViewById(R.id.listButton);		 
-		button.setOnClickListener(new OnClickListener() {
- 
-			@SuppressWarnings("static-access")
-			@Override
-			public void onClick(View arg0) {
-				if(!(listView.getVisibility() == listView.VISIBLE)) {
-					listView.setVisibility(listView.VISIBLE);
-				}
-				else {
-					listView.setVisibility(listView.GONE);
-				}
-			}
-		});
-		 
-	    ArrayList<String> list = new ArrayList<String>();  
-	    list.add("http://chart-1-us.msw.ms/wave/750/38-1375401600-1.gif");
-	    list.add("http://chart-1-us.msw.ms/wave/750/38-1375401600-2.gif");
-	    list.add("http://chart-1-us.msw.ms/gfs/750/38-1375401600-4.gif");
-	    list.add("http://chart-1-us.msw.ms/gfs/750/38-1375401600-4.gif");
-	    
-		listView2 =  (ListView) findViewById(R.id.listimages);
-		listView2.setAdapter(new ImageListAdapter(this, list));
+		primaryWavesHeight = (TextView) findViewById(R.id.waves_primary_swell_text);
+		primaryPeriodHeight = (TextView) findViewById(R.id.period_primary_swell_text);
+		primaryCursor = (ImageView) findViewById(R.id.primary_swell_direction_cursor);
+		
+		secondaryWavesHeight = (TextView) findViewById(R.id.waves_secondary_swell_text);
+		secondaryPeriodHeight = (TextView) findViewById(R.id.period_secondary_swell_text);
+		secondaryCursor = (ImageView) findViewById(R.id.secondary_swell_direction_cursor);
 
-		button2 = (Button) findViewById(R.id.listButtonImages);		 
-		button2.setOnClickListener(new OnClickListener() {
- 
-			@SuppressWarnings("static-access")
-			@Override
-			public void onClick(View arg0) {
-				if(!(listView2.getVisibility() == listView2.VISIBLE)) {
-					listView2.setVisibility(listView2.VISIBLE);
-				}
-				else {
-					listView2.setVisibility(listView2.GONE);
-				}
-			}
-		});
+		weatherImage = (ImageView) findViewById(R.id.weather_image);
+		weatherAirTemp = (TextView) findViewById(R.id.weather_air_temperature);
+		weatherSeaTemp = (TextView) findViewById(R.id.weather_sea_temperature);
+		
+		title.setText(data.getName());
+		
+		wavesHeight.setText(forecastNow.getSwell().getAbsMaxBreakingHeight() +"-" + forecastNow.getSwell().getAbsMinBreakingHeight() + forecastNow.getSwell().getUnit());
+		forecastRatingBar.setRating(forecastNow.getSolidRating());
+		windDirection.setText(forecastNow.getWind().getDirection() + " " + forecastNow.getWind().getSpeed() + forecastNow.getWind().getUnit());
+		cursorWind.setRotation(forecastNow.getWind().getDirection());
+		
+		primaryWavesHeight.setText(forecastNow.getSwell().getComponents().getPrimary().getHeight() + forecastNow.getSwell().getUnit());
+		primaryPeriodHeight.setText(forecastNow.getSwell().getComponents().getPrimary().getPeriod()+ "s");
+		primaryCursor.setRotation(forecastNow.getSwell().getComponents().getPrimary().getDirection());
+		
+		if(forecastNow.getSwell().getComponents().getSecondary() != null) {
+			secondaryWavesHeight.setText(forecastNow.getSwell().getComponents().getSecondary().getHeight() + forecastNow.getSwell().getUnit());
+			secondaryPeriodHeight.setText(forecastNow.getSwell().getComponents().getSecondary().getPeriod()+ "s");
+			secondaryCursor.setRotation(forecastNow.getSwell().getComponents().getSecondary().getDirection());
+		}
+		else{
+			View sec = findViewById(R.id.secondary_swell_layout);
+			View secText = findViewById(R.id.secundaryText);
+			sec.setVisibility(View.GONE);
+			secText.setVisibility(View.GONE);
+		}
+		mapImageView = (ImageView) findViewById(R.id.imagePointMap);
+		mapImageView.setImageDrawable(getCompleteMap());
+		
+        weatherImage = (ImageView) findViewById(R.id.weather_image);
+        ImageLoader.getInstance().displayImage("http://cdnimages.magicseaweed.com/30x30/11.png", weatherImage);	
+        
+        weatherAirTemp.setText(forecastNow.getCondition().getTemperature().toString() + forecastNow.getCondition().getUnit() + "º");
+        weatherSeaTemp.setText(forecastNow.getCondition().getPressure().toString() + forecastNow.getCondition().getUnitPressure());
+	}
+	
+	private List<ChartItem> getList() {
+	    ArrayList<ChartItem> list = new ArrayList<ChartItem>();  
+	    Charts charts = forecastNow.getCharts();
+	    
+	    list.add(new ChartItem(charts.getSwell(), getResources().getString(R.string.swell)));
+	    list.add(new ChartItem(charts.getPeriod(), getResources().getString(R.string.period)));
+	    list.add(new ChartItem(charts.getWind(), getResources().getString(R.string.wind)));
+	    list.add(new ChartItem(charts.getPressure(), getResources().getString(R.string.pressure)));
+		return list;
 	}
 
 
+	private Drawable getCompleteMap() {
+		BitmapDrawable swellBitmap = getRotatedBitmapDrawable(R.drawable.swell_image1, forecastNow.getSwell().getComponents().getCombined().getDirection());
+		BitmapDrawable windBitmap = getRotatedBitmapDrawable(R.drawable.wind_image1, Float.valueOf(forecastNow.getWind().getDirection()));
+		
+		BitmapDrawable map = (BitmapDrawable) getResources().getDrawable(getResources().getIdentifier("map" + Constants.mapAll.get(data.getName()).toString(), "drawable", getPackageName()));
+		BitmapDrawable compass = (BitmapDrawable) getResources().getDrawable(R.drawable.img_compass_overlay);
+  
+	    Drawable drawableArray[]= new Drawable[]{swellBitmap, windBitmap};
+	    LayerDrawable layerDraw = new LayerDrawable(drawableArray);
+    
+	    Bitmap anglesBitmap = Bitmap.createBitmap(layerDraw.getMinimumWidth(), layerDraw.getMinimumHeight(), Bitmap.Config.ARGB_8888);
+	    Canvas canvas = new Canvas(anglesBitmap);
+	    layerDraw.setBounds(0, 0, layerDraw.getMinimumWidth(), layerDraw.getMinimumHeight());
+	    layerDraw.draw(canvas);
+    
+	    Integer startX = (anglesBitmap.getHeight() - map.getMinimumHeight()) / 2;
+	    Integer startY = (anglesBitmap.getWidth() - map.getMinimumWidth()) / 2;
+	    Bitmap cropped = Bitmap.createBitmap(anglesBitmap, startX, startY, map.getMinimumHeight(), map.getMinimumWidth());
+
+	    BitmapDrawable anglesBitmapDrawable = new BitmapDrawable(getResources(), cropped); 
+	    Drawable drawableArray2[]= new Drawable[]{map, compass, anglesBitmapDrawable};
+
+	    LayerDrawable resultDrawable = new LayerDrawable(drawableArray2);
+	    return resultDrawable;
+	}
+
 	private BitmapDrawable getRotatedBitmapDrawable(int id, Float angle) {
-        Bitmap forMap = BitmapFactory.decodeResource(getResources(), id, opts);
+        Bitmap forMap = BitmapFactory.decodeResource(getResources(), id);
         Matrix matrix = new Matrix();
         matrix.setRotate(angle, forMap.getWidth()/2, forMap.getHeight()/2);
         Bitmap rotatedForMap = Bitmap.createBitmap(forMap , 0, 0, forMap.getWidth(), forMap.getHeight(), matrix, true);
-        rotatedForMap = Bitmap.createBitmap(rotatedForMap , 0, 0, forMap.getWidth(), forMap.getHeight());
-        Log.d("width y heigh ", rotatedForMap.getWidth() + " " + forMap.getWidth());
         BitmapDrawable rotatedBitmapDrawable = new BitmapDrawable(getResources(), rotatedForMap); 
         return rotatedBitmapDrawable;
 	}
+	
+	private ForecastItem getForecastNow(ForecastSearchResult data) {
+		return data.getResults().get(0);
+	}
+
+
+
+	private void switchViews(View forecastView2) {
+		if(forecastView2.getVisibility() == View.VISIBLE) {
+			forecastView2.setVisibility(View.GONE);
+		} else {
+			forecastView2.setVisibility(View.VISIBLE);
+		}	
+	}
+
 }

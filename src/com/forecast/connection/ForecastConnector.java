@@ -10,7 +10,7 @@ import java.net.URL;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.forecast.json.Result;
+import com.forecast.json.ForecastItem;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -49,7 +49,7 @@ public class ForecastConnector {
 
 		    for(JsonElement obj : Jarray)
 		    {
-		    	Result cse = gson.fromJson(obj , Result.class);
+		    	ForecastItem cse = gson.fromJson(obj , ForecastItem.class);
 		    	if (cse.getLocalTimestamp() > time) {
 		    		result.getResults().add(cse);
 		    	}
@@ -62,7 +62,6 @@ public class ForecastConnector {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
-	    	Toast.makeText(context, "no anda la conexion" , Toast.LENGTH_LONG).show();
 			e.printStackTrace();
 		} finally {
 	    	connection.disconnect();

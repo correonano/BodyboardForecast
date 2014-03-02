@@ -3,6 +3,29 @@
 
     <string name="app_name">BodyboardForecast</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-
+    <string name="points_prompt">Choose</string>
+    <string name="notification_text" formatted="false">Forecast for %s is ready</string>
+    
+    <string name="swell">Swell</string>
+    <string name="period">Period</string>
+    <string name="pressure">Pressure</string>
+    <string name="wind">Wind</string>
+   
+    <string name="oleaje_primario">OLEAJE PRIMARIO: </string>
+    <string name="oleaje_secundario">OLEAJE SECUNDARIO: </string>
+    
+    <string name="forecast">Forecast</string>
+    <string name="extended_forecast">Extended Forecast</string>
+    <string name="charts">Charts</string>
+    <string name="letsgo">Let`s go</string>
+    
+   	<string name="argentina">Argentina</string>
+    <string name="chile">Chile</string>
+    <string name="brasil">Brasil</string>
+    <string name="mexico">México</string>
+    <string name="canarias">Canarias</string>
+    <string name="espana">España</string>
+    <string name="portugal">Portugal</string>
+    <string name="tahiti">Tahiti</string>
+    <string name="hawaii">Hawaii</string>
 </resources>

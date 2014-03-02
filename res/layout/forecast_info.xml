@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/forecast_relative_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    
+    <ImageView
+        android:id="@+id/imagePointMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"/>    
+	    
+		    <TextView android:id="@+id/maxMinWavesText"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" 
+	  		    android:layout_toRightOf="@id/imagePointMap"
+		        android:layout_marginTop="4dp"  
+		        android:layout_marginLeft="8dp"
+		        android:textSize="18sp"
+				android:textStyle="bold"/>
+		    
+		    <RatingBar
+		        android:id="@+id/ratingBar"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+	  		    android:layout_toRightOf="@id/maxMinWavesText"
+		        android:layout_marginTop="8dp" 
+		        android:layout_marginLeft="5dp" 
+		        android:numStars="5"
+		        android:stepSize="1"
+		        style="?android:attr/ratingBarStyleSmall"
+		        android:rating="2" />
+		    
+		    <TextView android:id="@+id/windDirection"
+		        android:layout_marginTop="8dp" 
+		        android:layout_marginLeft="8dp" 
+		        android:textStyle="bold"
+		        android:textSize="14sp"
+		        android:layout_below="@id/maxMinWavesText"
+		        android:layout_toRightOf="@id/imagePointMap"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="NW"/> 
+		     	
+		    <TextView android:id="@+id/windSpeed"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" 
+		        android:layout_marginLeft="5dp"   
+		        android:layout_marginTop="8dp"
+		        android:layout_below="@id/maxMinWavesText"
+		        android:layout_toRightOf="@id/windDirection"
+		        android:textSize="14sp"
+		        android:textStyle="bold"/> 
+		        
+		    <ImageView
+		        android:id="@+id/imageCursorWind"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="8dp"
+		        android:layout_marginLeft="16dp"   
+		        android:layout_below="@id/maxMinWavesText"
+		        android:layout_toRightOf="@id/windSpeed"
+		        android:src="@drawable/cursor_viento"/>
+     	
+    <TextView android:id="@+id/primaryText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+		android:textSize="14sp"
+		android:textStyle="bold"
+		android:layout_toRightOf="@id/imagePointMap"
+		android:layout_below="@id/windDirection"
+        android:layout_marginLeft="8dp"   
+        android:layout_marginTop="8dp"     
+     	android:text="@string/oleaje_primario"/> 
+     	
+    <LinearLayout 
+        android:id="@+id/primary_swell_layout"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+		android:layout_below="@id/primaryText"
+		android:layout_toRightOf="@id/imagePointMap"
+	    android:orientation="horizontal">
+		    
+		    <TextView android:id="@+id/waves_primary_swell_text"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" 
+		        android:layout_marginTop="4dp"  
+		        android:layout_marginLeft="8dp"
+		        android:textSize="14sp"
+				android:textStyle="bold"/>		
+		     	
+		    <TextView android:id="@+id/period_primary_swell_text"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" 
+		        android:layout_marginTop="4dp"  
+		        android:layout_marginLeft="4dp"
+		        android:textSize="14sp"
+				android:textStyle="bold"/>  
+		     	
+		    <ImageView
+		        android:id="@+id/primary_swell_direction_cursor"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="16dp"   
+		        android:src="@drawable/cursor_viento"/>		     	  
+
+	</LinearLayout>
+
+     	
+    <TextView android:id="@+id/secundaryText"
+        android:layout_marginTop="4dp" 
+        android:layout_marginLeft="4dp" 
+		android:textSize="14sp"
+		android:textStyle="bold"
+		android:layout_below="@id/primary_swell_layout"
+		android:layout_toRightOf="@id/imagePointMap"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"        
+     	android:text="@string/oleaje_secundario"/> 
+
+    <LinearLayout 
+        android:id="@+id/secondary_swell_layout"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+		android:layout_below="@id/secundaryText"
+		android:layout_toRightOf="@id/imagePointMap"
+	    android:orientation="horizontal">
+		    
+		    <TextView android:id="@+id/waves_secondary_swell_text"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" 
+		        android:layout_marginTop="4dp"  
+		        android:layout_marginLeft="8dp"
+		        android:textSize="14sp"
+				android:textStyle="bold"/>		
+		     	
+		    <TextView android:id="@+id/period_secondary_swell_text"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" 
+		        android:layout_marginTop="4dp"  
+		        android:layout_marginLeft="4dp"
+		        android:textSize="14sp"
+				android:textStyle="bold"/>  
+		     	
+		    <ImageView
+		        android:id="@+id/secondary_swell_direction_cursor"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="16dp"   
+		        android:src="@drawable/cursor_viento"/>		     	  
+	</LinearLayout>
+	
+    <LinearLayout 
+        android:id="@+id/weather_layout"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@id/secondary_swell_layout"
+		android:layout_toRightOf="@id/imagePointMap"
+	    android:orientation="horizontal">
+
+        	<ImageView
+		        android:id="@+id/weather_image"
+		        android:layout_width="30dp"
+		        android:layout_height="30dp"
+		        android:layout_marginLeft="8dp"  
+		        android:layout_marginTop="5dp"/>	
+		        		    
+		    <TextView android:id="@+id/weather_air_temperature"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" 
+		        android:layout_marginTop="8dp"  
+		        android:layout_marginLeft="10dp"
+		        android:textSize="14sp"
+				android:textStyle="bold"/>		
+		     	
+		    <TextView android:id="@+id/weather_sea_temperature"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" 
+		        android:layout_marginTop="8dp"  
+		        android:layout_marginLeft="10dp"
+		        android:textSize="14sp"
+				android:textStyle="bold"/>  
+	     	  
+	</LinearLayout>
+     	
+</RelativeLayout>

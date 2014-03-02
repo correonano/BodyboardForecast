@@ -1,126 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    		xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    		   xmlns:tools="http://schemas.android.com/tools"
     		   android:orientation="vertical"
-  	               android:layout_width="match_parent"
+  	           android:layout_width="match_parent"
        		   android:layout_height="match_parent">
-<RelativeLayout 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context=".MainActivity" >
-    
-    <ImageView
-        android:id="@+id/imagePointMap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"/>
-    
-    <TextView android:id="@+id/maxMinWavesText"
-        android:layout_toRightOf="@id/imagePointMap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:layout_marginTop="4dp"  
-        android:layout_marginLeft="4dp"
-        android:textSize="24sp"
-		android:textStyle="bold"          
-     	android:text="2.2-2.4m"/>
-    
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_toRightOf="@id/maxMinWavesText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" 
-        android:layout_marginLeft="8dp" 
-        android:numStars="5"
-        android:stepSize="1"
-        style="?android:attr/ratingBarStyleSmall"
-        android:rating="2" />
-    
-    <TextView android:id="@+id/windDirection"
-        android:layout_below="@id/maxMinWavesText"
-        android:layout_toRightOf="@id/imagePointMap"
-        android:layout_marginTop="4dp" 
-        android:layout_marginLeft="4dp" 
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/> 
-     	
-    <TextView android:id="@+id/windSpeed"
-        android:layout_toRightOf="@id/windDirection"
-        android:layout_below="@id/maxMinWavesText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:layout_marginLeft="4dp"   
-        android:layout_marginTop="4dp"
-        android:textStyle="bold"/> 
-        
-    <ImageView
-        android:id="@+id/imageCursorWind"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"   
-        android:layout_below="@id/maxMinWavesText"
-        android:layout_toRightOf="@id/windSpeed"
-        android:src="@drawable/cursor_viento"/>
-     	
-    <TextView android:id="@+id/secundaryText"
-        android:layout_below="@id/windSpeed"
-        android:layout_toRightOf="@id/imagePointMap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:layout_marginLeft="4dp"   
-        android:layout_marginTop="8dp"     
-     	android:text="OLEAJE PRIMARIO:  "/> 
 
-     	
-    <TextView android:id="@+id/terciaryText"
-        android:layout_below="@id/secundaryText"
-        android:layout_toRightOf="@id/imagePointMap"
-        android:layout_marginTop="4dp" 
-        android:layout_marginLeft="4dp" 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"        
-     	android:text="OLEAJE SECUNDARIO:"/> 
-
-    <TextView android:id="@+id/temperatureText"
-        android:layout_toRightOf="@id/imagePointMap"
-        android:layout_below="@id/terciaryText"
-        android:layout_marginTop="4dp" 
-        android:layout_marginLeft="4dp" 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/> 
-     		
-    <TextView android:id="@+id/pressureText"
-        android:layout_toRightOf="@id/temperatureText"
-        android:layout_below="@id/terciaryText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:layout_marginLeft="4dp"   
-        android:layout_marginTop="4dp"/> 
-     	
-    </RelativeLayout>
-
-	       <Button android:id="@+id/listButton"
-   	           	   android:text="Extended Forecast"
+       		   
+		    <TextView android:id="@+id/point_title"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content" 
+			        android:gravity="center"
+			        android:padding="3dp"
+			        android:textSize="36sp"
+					android:textStyle="bold"/>
+    
+	       <Button android:id="@+id/forecastButton"
+   	           	   android:text="@string/forecast"
+   	           	   android:layout_margin="2dp"
+   	           	   android:textColor="@android:color/white"
+   	           	   android:background="@drawable/button_shape"
+   	               android:layout_width="fill_parent"
+        		   android:layout_height="wrap_content"/>
+	       
+	       <include layout="@layout/forecast_info" />
+	       	       	      
+	       <Button android:id="@+id/extendedForecastButton"
+   	           	   android:text="@string/extended_forecast"
+   	           	   android:layout_margin="2dp"
+   	           	   android:background="@drawable/button_shape"
+   	           	   android:textColor="@android:color/white"
    	               android:layout_width="fill_parent"
         		   android:layout_height="wrap_content"/>
    	       	<ListView
 			        android:id="@+id/listforecast"
 			        android:layout_width="fill_parent"
-			        android:layout_height="wrap_content"
+			        android:layout_height="fill_parent"
 			        android:visibility="gone" >
 		    </ListView>
 
-  		   <Button android:id="@+id/listButtonImages"
-  		       		android:text="Charts"
+  		   <Button android:id="@+id/chartsButton"
+  		       	   android:text="@string/charts"
+   	           	   android:layout_margin="2dp"
+   	           	   android:textColor="@android:color/white"
+   	           	   android:background="@drawable/button_shape"
    	               android:layout_width="fill_parent"
         		   android:layout_height="wrap_content"/>
    	       	<ListView
 			        android:id="@+id/listimages"
 			        android:layout_width="fill_parent"
-			        android:layout_height="wrap_content"
+			        android:layout_height="fill_parent"
 			        android:visibility="gone" >
     	   </ListView>
 

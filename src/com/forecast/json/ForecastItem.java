@@ -1,7 +1,7 @@
 package com.forecast.json;
 
 
-public class Result{
+public class ForecastItem{
    	private Charts charts;
    	private Condition condition;
    	private Integer fadedRating;

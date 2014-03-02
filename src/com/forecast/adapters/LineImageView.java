@@ -11,23 +11,28 @@ import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.forecast.json.ChartItem;
 import com.nano.bodyboardforecast.R;
 
 public class LineImageView extends FrameLayout{
 
 	ImageView image;
+	TextView name;
 	
-	public LineImageView(Context context, String url) {
+	public LineImageView(Context context, ChartItem item) {
 		super(context);
 		
 		LayoutInflater li = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	    li.inflate(R.layout.line_image, this);
 
-	    image = (ImageView)findViewById(R.id.imageViewList);
+	    image = (ImageView) findViewById(R.id.imageViewList);
+	    name = (TextView) findViewById(R.id.textChart);
 	    
 	    DownloadImageTask imageDownloader = new DownloadImageTask(image);
-	    imageDownloader.execute(url);
+	    imageDownloader.execute(item.getUrl());
+	    name.setText(item.getName());
 	}
 	
 	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {

@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/imageViewLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="10dp">
         
     <TextView android:id="@+id/textChart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" 
         android:layout_marginTop="4dp"  
-        android:layout_marginLeft="10dp"
-        android:textSize="24sp"
+        android:textSize="16sp"
 		android:textStyle="bold"
-     	android:text="CHART"/>
+	    android:layout_centerHorizontal="true"/>
 	<ImageView 
 	    android:id="@+id/imageViewList"
 	    android:layout_below="@id/textChart"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content" />
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent" 
+	    android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

@@ -2,11 +2,11 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
       <bitmap 
-        android:src="@drawable/teahupomap"
+        android:src="@drawable/map619"
         android:gravity="center" />
     </item>
     <item>
-      <bitmap android:src="@drawable/rosa_viento"
+      <bitmap android:src="@drawable/img_compass_overlay"
         android:gravity="center" />
     </item>
     <item>

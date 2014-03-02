@@ -7,7 +7,7 @@ import com.forecast.json.Combined;
 import com.forecast.json.Components;
 import com.forecast.json.Condition;
 import com.forecast.json.Primary;
-import com.forecast.json.Result;
+import com.forecast.json.ForecastItem;
 import com.forecast.json.Secondary;
 import com.forecast.json.Swell;
 import com.forecast.json.Wind;
@@ -83,7 +83,7 @@ public class ForecastDAO {
 		operations = new ArrayList<ContentProviderOperation>();
 	}
 	
-	public Result getForecastNow(Long timeStamp) {
+	public ForecastItem getForecastNow(Long timeStamp) {
 		String[] projection = new String[] {
 			    Forecast._ID,
 			    Forecast.COL_LOCAL_TIMESTAMP,
@@ -171,7 +171,7 @@ public class ForecastDAO {
 	        temperature = cur.getFloat(colTemperature);
 	        pressure = cur.getFloat(colPressure);
 	 
-	        Result result = new Result();
+	        ForecastItem result = new ForecastItem();
 	        result.setSwell(new Swell());
 	        result.setWind(new Wind());
 	        result.setCondition(new Condition());

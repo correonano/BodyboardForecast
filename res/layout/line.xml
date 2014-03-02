@@ -47,8 +47,39 @@
 				android:layout_marginLeft="10dp"
 				android:textSize="16sp"
 				android:text="1.2m 12s"></TextView>
-<!--      <TextView 	android:id="@+id/textDay3" -->
-<!--            		android:layout_width="30dp" -->
-<!-- 				android:layout_height="wrap_content"></TextView> -->
+     
+     <LinearLayout android:id="@+id/extended_weather"
+       		android:orientation="horizontal"
+            android:layout_width="fill_parent"
+   			android:layout_height="wrap_content"
+   			android:layout_below="@id/layoutDay"
+   			android:layout_toRightOf="@id/layoutDay"
+   			android:visibility="gone">
+         	
+         	<ImageView
+		        android:id="@+id/weather_extended_image"
+		        android:layout_width="25dp"
+		        android:layout_height="25dp"
+		        android:layout_marginLeft="8dp"  
+		        android:layout_marginTop="5dp"/>	
+		        		    
+		    <TextView android:id="@+id/weather_air_temperature"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" 
+		        android:layout_marginTop="8dp"  
+		        android:layout_marginLeft="10dp"
+		        android:textSize="14sp"
+				android:textStyle="bold"          
+		     	android:text="Air 25ºc"/>		
+		     	
+		    <TextView android:id="@+id/weather_sea_temperature"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" 
+		        android:layout_marginTop="8dp"  
+		        android:layout_marginLeft="10dp"
+		        android:textSize="14sp"
+				android:textStyle="bold"          
+		     	android:text="Sea 17ºc"/>  
+     </LinearLayout>
      
 </RelativeLayout>

@@ -9,7 +9,15 @@ package com.nano.bodyboardforecast;
 
 public final class R {
     public static final class array {
-        public static final int points_array=0x7f060000;
+        /**          <item>@string/chile</item> 
+         <item>@string/mexico</item> 
+         <item>@string/canarias</item> 
+         <item>@string/espana</item> 
+         <item>@string/portugal</item> 
+         <item>@string/tahiti</item> 
+         <item>@string/hawaii</item> 
+         */
+        public static final int country_array=0x7f050000;
     }
     public static final class attr {
     }
@@ -24,59 +32,116 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int cursor_swell=0x7f020000;
-        public static final int cursor_viento=0x7f020001;
-        public static final int ic_launcher=0x7f020002;
-        public static final int layers=0x7f020003;
-        public static final int rosa_viento=0x7f020004;
-        public static final int swell_image=0x7f020005;
-        public static final int swell_image1=0x7f020006;
-        public static final int teahupomap=0x7f020007;
-        public static final int wind_image=0x7f020008;
-        public static final int wind_image1=0x7f020009;
+        public static final int bodylogo=0x7f020000;
+        public static final int button_search_shape=0x7f020001;
+        public static final int button_shape=0x7f020002;
+        public static final int cursor_swell=0x7f020003;
+        public static final int cursor_viento=0x7f020004;
+        public static final int custom_spinner=0x7f020005;
+        public static final int forecast_launcher=0x7f020006;
+        public static final int img_compass_overlay=0x7f020007;
+        public static final int layers=0x7f020008;
+        public static final int map1277=0x7f020009;
+        public static final int map2704=0x7f02000a;
+        public static final int map2707=0x7f02000b;
+        public static final int map2709=0x7f02000c;
+        public static final int map2710=0x7f02000d;
+        public static final int map3870=0x7f02000e;
+        public static final int map432=0x7f02000f;
+        public static final int map502=0x7f020010;
+        public static final int map619=0x7f020011;
+        public static final int msw_powered_by=0x7f020012;
+        public static final int swell_image=0x7f020013;
+        public static final int swell_image1=0x7f020014;
+        public static final int swell_image11=0x7f020015;
+        public static final int triangle=0x7f020016;
+        public static final int wind_image=0x7f020017;
+        public static final int wind_image1=0x7f020018;
+        public static final int wind_image11=0x7f020019;
     }
     public static final class id {
-        public static final int action_settings=0x7f090019;
-        public static final int button1=0x7f090001;
-        public static final int imageCursorWind=0x7f090007;
-        public static final int imagePointMap=0x7f090002;
-        public static final int imageViewLine=0x7f090016;
-        public static final int imageViewList=0x7f090018;
-        public static final int layoutDay=0x7f090011;
-        public static final int line=0x7f090010;
-        public static final int listButton=0x7f09000c;
-        public static final int listButtonImages=0x7f09000e;
-        public static final int listforecast=0x7f09000d;
-        public static final int listimages=0x7f09000f;
-        public static final int maxMinWavesText=0x7f090003;
-        public static final int points_spinner=0x7f090000;
-        public static final int pressureText=0x7f09000b;
-        public static final int ratingBar=0x7f090004;
-        public static final int secundaryText=0x7f090008;
-        public static final int surf=0x7f090014;
-        public static final int surfSecondary=0x7f090015;
-        public static final int temperatureText=0x7f09000a;
-        public static final int terciaryText=0x7f090009;
-        public static final int textChart=0x7f090017;
-        public static final int textDay=0x7f090012;
-        public static final int textDayNumber=0x7f090013;
-        public static final int windDirection=0x7f090005;
-        public static final int windSpeed=0x7f090006;
+        public static final int action_settings=0x7f09002e;
+        public static final int app_title=0x7f090026;
+        public static final int button1=0x7f09002c;
+        public static final int chartsButton=0x7f090019;
+        public static final int country_spinner=0x7f090029;
+        public static final int extendedForecastButton=0x7f090017;
+        public static final int extended_weather=0x7f090021;
+        public static final int forecastButton=0x7f090016;
+        public static final int forecast_relative_layout=0x7f090000;
+        public static final int imageCursorWind=0x7f090006;
+        public static final int imagePointMap=0x7f090001;
+        public static final int imageViewLine=0x7f090023;
+        public static final int imageViewList=0x7f090025;
+        public static final int image_logo=0x7f090027;
+        public static final int layoutDay=0x7f09001c;
+        public static final int line=0x7f09001b;
+        public static final int listforecast=0x7f090018;
+        public static final int listimages=0x7f09001a;
+        public static final int maxMinWavesText=0x7f090002;
+        public static final int period_primary_swell_text=0x7f09000a;
+        public static final int period_secondary_swell_text=0x7f09000f;
+        public static final int point_title=0x7f090015;
+        public static final int points_spinner=0x7f09002b;
+        public static final int powered=0x7f09002d;
+        public static final int primaryText=0x7f090007;
+        public static final int primary_swell_direction_cursor=0x7f09000b;
+        public static final int primary_swell_layout=0x7f090008;
+        public static final int ratingBar=0x7f090003;
+        public static final int relative_spinner1=0x7f090028;
+        public static final int relative_spinner2=0x7f09002a;
+        public static final int secondary_swell_direction_cursor=0x7f090010;
+        public static final int secondary_swell_layout=0x7f09000d;
+        public static final int secundaryText=0x7f09000c;
+        public static final int surf=0x7f09001f;
+        public static final int surfSecondary=0x7f090020;
+        public static final int textChart=0x7f090024;
+        public static final int textDay=0x7f09001d;
+        public static final int textDayNumber=0x7f09001e;
+        public static final int waves_primary_swell_text=0x7f090009;
+        public static final int waves_secondary_swell_text=0x7f09000e;
+        public static final int weather_air_temperature=0x7f090013;
+        public static final int weather_extended_image=0x7f090022;
+        public static final int weather_image=0x7f090012;
+        public static final int weather_layout=0x7f090011;
+        public static final int weather_sea_temperature=0x7f090014;
+        public static final int windDirection=0x7f090004;
+        public static final int windSpeed=0x7f090005;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
+        public static final int forecast_info=0x7f030000;
         public static final int forecastlayout=0x7f030001;
         public static final int line=0x7f030002;
         public static final int line_image=0x7f030003;
+        public static final int point_selection_layout=0x7f030004;
     }
     public static final class menu {
         public static final int main=0x7f080000;
     }
     public static final class string {
-        public static final int action_settings=0x7f050002;
-        public static final int app_name=0x7f050001;
-        public static final int hello_world=0x7f050003;
-        public static final int points_prompt=0x7f050000;
+        public static final int action_settings=0x7f060001;
+        public static final int app_name=0x7f060000;
+        public static final int argentina=0x7f06000e;
+        public static final int brasil=0x7f060010;
+        public static final int canarias=0x7f060012;
+        public static final int charts=0x7f06000c;
+        public static final int chile=0x7f06000f;
+        public static final int espana=0x7f060013;
+        public static final int extended_forecast=0x7f06000b;
+        public static final int forecast=0x7f06000a;
+        public static final int hawaii=0x7f060016;
+        public static final int letsgo=0x7f06000d;
+        public static final int mexico=0x7f060011;
+        public static final int notification_text=0x7f060003;
+        public static final int oleaje_primario=0x7f060008;
+        public static final int oleaje_secundario=0x7f060009;
+        public static final int period=0x7f060005;
+        public static final int points_prompt=0x7f060002;
+        public static final int portugal=0x7f060014;
+        public static final int pressure=0x7f060006;
+        public static final int swell=0x7f060004;
+        public static final int tahiti=0x7f060015;
+        public static final int wind=0x7f060007;
     }
     public static final class style {
         /** 

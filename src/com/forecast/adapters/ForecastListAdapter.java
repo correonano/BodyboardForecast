@@ -2,23 +2,31 @@ package com.forecast.adapters;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.forecast.database.ForecastContentProvider.Forecast;
+import com.forecast.json.ForecastItem;
 import com.nano.bodyboardforecast.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class ForecastListAdapter extends CursorAdapter {
+@SuppressLint("SimpleDateFormat")
+public class ForecastListAdapter extends ArrayAdapter<ForecastItem> {
+	
+	private Context context;
 
-	public ForecastListAdapter(Context context, Cursor c){
-		super(context, c, 0);
+	public ForecastListAdapter(Context context, int resource, List<ForecastItem> objects){
+		super(context, resource, objects);
+		this.context = context;
 	}
 
 	static class ViewHolder {
@@ -27,47 +35,72 @@ public class ForecastListAdapter extends CursorAdapter {
 		  TextView surf;
 		  RatingBar rating;
 		  TextView oleajePrimario;
+		  TextView airTemp;
+		  TextView seaTemp;
+		  ImageView weatherIcon;
 		  
 	}
 	
-	@Override
-	public void bindView(View view, Context context, Cursor cursor) {
-    	ViewHolder holder = (ViewHolder)view.getTag(); 
-    	populateView(cursor, holder);		
-	}
 
-	@Override
-	public View newView(Context context, Cursor cursor, ViewGroup parent) {
-		LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	    View l = li.inflate(R.layout.line, null);  
-	    ViewHolder holder = new ViewHolder();
-    	holder.dia = (TextView) l.findViewById(R.id.textDay); 
-    	holder.diaNumero = (TextView) l.findViewById(R.id.textDayNumber); 
-    	holder.rating = (RatingBar) l.findViewById(R.id.ratingBar); 
-    	holder.surf = (TextView) l.findViewById(R.id.surf); 
-    	l.setTag(holder);
-		return l;
-	}
-	
-	private void populateView(Cursor cur, ViewHolder holder){
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent)
+    {
+
+        ViewHolder viewHolder;
+        
+    	if(convertView == null) {
+    		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    		convertView = inflater.inflate(R.layout.line, parent, false);
+    		
+    	    viewHolder = new ViewHolder();
+    	    convertView.setTag(viewHolder);
+			final View w = (View) convertView.findViewById(R.id.extended_weather); 
+    	    convertView.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if(w.getVisibility() == View.VISIBLE) {
+						w.setVisibility(View.GONE);
+					} else {
+						w.setVisibility(View.VISIBLE);
+					}
+				}
+			});
+    	} else {
+    		
+    		viewHolder = (ViewHolder) convertView.getTag();
+    	}
+        
+
+        ForecastItem info = getItem(position);
+        
+        viewHolder.dia = (TextView) convertView.findViewById(R.id.textDay); 
+        viewHolder.diaNumero = (TextView) convertView.findViewById(R.id.textDayNumber); 
+        viewHolder.rating = (RatingBar) convertView.findViewById(R.id.ratingBar); 
+        viewHolder.surf = (TextView) convertView.findViewById(R.id.surf); 
+        viewHolder.airTemp = (TextView) convertView.findViewById(R.id.weather_air_temperature); 
+        viewHolder.seaTemp = (TextView) convertView.findViewById(R.id.weather_sea_temperature); 
+        viewHolder.weatherIcon = (ImageView) convertView.findViewById(R.id.weather_extended_image); 
+        populateView(viewHolder, info);
+		return convertView;
+    }
+    
+	private void populateView(ViewHolder holder, ForecastItem info){
 		
-	    int colTimestamp = cur.getColumnIndex(Forecast.COL_LOCAL_TIMESTAMP);
-	    int colmax = cur.getColumnIndex(Forecast.COL_MAX_BREAKING_HEIGHT);
-	    int colmin = cur.getColumnIndex(Forecast.COL_MIN_BREAKING_HEIGHT);
-	    int colrating = cur.getColumnIndex(Forecast.COL_SOLID_RATING);
-	    
 	    Date date = new Date();
-	    date.setTime((long)cur.getLong(colTimestamp)*1000);
+	    date.setTime((long)info.getTimestamp()*1000);
 	    
-	    SimpleDateFormat dateFormat = new SimpleDateFormat("EEE"); 
-	    SimpleDateFormat dayAndMonthFormat = new SimpleDateFormat("dd/MM HH");
+	    SimpleDateFormat dateFormat = new SimpleDateFormat(com.forecast.util.Constants.DATE_FORMAT); 
+	    SimpleDateFormat dayAndMonthFormat = new SimpleDateFormat(com.forecast.util.Constants.DAY_FORMAT);
 	    String asWeek = dateFormat.format(date);
 	    holder.dia.setText(asWeek);
 	    holder.diaNumero.setText(dayAndMonthFormat.format(date) + "hs");
-	    String surf = cur.getFloat(colmax)+"-"+cur.getFloat(colmin) + "m";
+	    String surf = info.getSwell().getMaxBreakingHeight()+"-"+info.getSwell().getMinBreakingHeight() + com.forecast.util.Constants.METER;
 	    holder.surf.setText(surf);
-	    holder.rating.setRating(cur.getInt(colrating));
-//	    holder.oleajePrimario.setText(text);
+	    holder.rating.setRating(info.getSolidRating());
+	    
+//	    holder.seaTemp.setText(info.get);
+
+        ImageLoader.getInstance().displayImage("http://cdnimages.magicseaweed.com/30x30/11.png", holder.weatherIcon);
 
 	}
 		

@@ -13,7 +13,7 @@ import com.forecast.activities.ForecastReportActivity;
 import com.forecast.connection.ForecastConnector;
 import com.forecast.connection.ForecastSearchResult;
 import com.forecast.database.ForecastDAO;
-import com.forecast.json.Result;
+import com.forecast.json.ForecastItem;
 
 
 public class ForecastDataService extends IntentService {
@@ -42,14 +42,14 @@ public class ForecastDataService extends IntentService {
 		ForecastDAO dao = new ForecastDAO(cr);
 		
 		if(results != null){
-			List<Result> list = results.getResults();
+			List<ForecastItem> list = results.getResults();
 			
 			dao.deleteAll();
 			
 			Long timeStamp = System.currentTimeMillis() / 1000L;
 			
-			for (Iterator<Result> it = list.iterator(); it.hasNext();){
-				Result r = it.next();
+			for (Iterator<ForecastItem> it = list.iterator(); it.hasNext();){
+				ForecastItem r = it.next();
 				if(r.getLocalTimestamp() > timeStamp){
 					dao.insert(r.getLocalTimestamp(), 
 							   r.getSwell().getMaxBreakingHeight(), 
